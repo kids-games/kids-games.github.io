@@ -5,21 +5,29 @@
     </div>
 
     <h1>Игра для <span id="class-number">1</span> класса</h1>
-    <p>Перетащи предметы в целевое поле!</p>
+    <p id="task-description">Реши задание и введи ответ!</p>
 
     <div class="game-area">
-        <div class="draggable-item item-1" draggable="true" id="item-1">🐱</div>
-        <div class="draggable-item item-2" draggable="true" id="item-2">🐶</div>
-        <div class="draggable-item item-3" draggable="true" id="item-3">🐰</div>
-        <div class="draggable-item item-4" draggable="true" id="item-4">🐻</div>
-        <div class="draggable-item item-5" draggable="true" id="item-5">🐵</div>
-
-        <div class="target-area">Сюда!</div>
+        <div id="task-container">
+            <!-- Контент задания будет добавляться динамически -->
+        </div>
+        
+        <div class="answer-container">
+            <input type="text" id="answer-input" placeholder="Введите ответ">
+            <button id="check-answer-btn" class="btn">Проверить</button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text">Задание <span id="current-task">1</span> из <span id="total-tasks">3</span></div>
+        </div>
     </div>
 
     <div class="success-message" id="success-message">
         <h2>Поздравляем! 🎉</h2>
-        <p>Ты успешно завершил задание!</p>
+        <p>Ты успешно завершил все задания!</p>
         <button class="btn play-again-btn">Играть еще</button>
     </div>
 </div>
