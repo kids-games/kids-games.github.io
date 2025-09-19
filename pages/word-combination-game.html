@@ -1,0 +1,85 @@
+<!-- Страница игры "Составь словосочетание" -->
+<div id="word-combination-game" class="page">
+    <div class="navigation">
+        <button class="back-btn"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <h1>Составь словосочетание</h1>
+    <p id="task-description">Перетащи существительные к подходящим прилагательным</p>
+
+    <div class="game-area">
+        <div class="combination-container">
+            <div class="adjectives-container">
+                <div class="adjective-item" data-word="тороватый">
+                    <span class="adjective-text">тороватый</span>
+                    <div class="target-dropzone" data-target="тороватый"></div>
+                </div>
+                <div class="adjective-item" data-word="ратный">
+                    <span class="adjective-text">ратный</span>
+                    <div class="target-dropzone" data-target="ратный"></div>
+                </div>
+                <div class="adjective-item" data-word="столбовой">
+                    <span class="adjective-text">столбовой</span>
+                    <div class="target-dropzone" data-target="столбовой"></div>
+                </div>
+            </div>
+
+            <div class="nouns-container">
+                <div class="noun-item draggable" draggable="true" data-word="купец">
+                    купец
+                </div>
+                <div class="noun-item draggable" draggable="true" data-word="подвиг">
+                    подвиг
+                </div>
+                <div class="noun-item draggable" draggable="true" data-word="дворянин">
+                    дворянин
+                </div>
+            </div>
+        </div>
+
+        <div class="hint-container">
+            <button id="hint-btn" class="hint-btn">
+                <i class="fas fa-lightbulb"></i> Подсказка
+            </button>
+            <div id="hint-content" class="hint-content">
+                <div class="word-definition">
+                    <h3>Тороватый</h3>
+                    <p>— щедрый, великодушный, охотно тратящий деньги на других. Ближе всего по смыслу к современному
+                        слову "щедрый".</p>
+                </div>
+                <div class="word-definition">
+                    <h3>Ратный</h3>
+                    <p>— связанный с войной, боем; военный. Ближайшие современные слова — "боевой", "воинский".</p>
+                </div>
+                <div class="word-definition">
+                    <h3>Столбовой</h3>
+                    <p>— превосходный, настоящий, первоклассный (часто о дворянине).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div id="result-image" class="result-image"></div>
+            <div id="result-text" class="result-text"></div>
+        </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+        <h2>ЗАПОМНИ!</h2>
+        <div id="remember-content" class="remember-content">
+            <div class="remember-item">
+                <h3>Тороватый купец</h3>
+                <p>— щедрый, великодушный купец, охотно тратящий деньги на других</p>
+            </div>
+            <div class="remember-item">
+                <h3>Ратный подвиг</h3>
+                <p>— воинский, боевой подвиг, связанный с войной</p>
+            </div>
+            <div class="remember-item">
+                <h3>Столбовой дворянин</h3>
+                <p>— настоящий, первоклассный дворянин (из старинного рода)</p>
+            </div>
+        </div>
+        <button class="btn next-level-btn">Завершить игру</button>
+    </div>
+</div>

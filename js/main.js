@@ -10,17 +10,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('.start-btn');
     if (startBtn) {
         startBtn.addEventListener('click', () => {
-            navigateTo('class-select');
+            // Переходим к выбору игры
+            navigateTo('game-select');
         });
     }
 
-    // Автовоспроизведение музыки с разрешения пользователя
-    document.addEventListener('click', function () {
-        const bgMusic = document.getElementById('bg-music');
-        if (bgMusic && bgMusic.paused) {
-            bgMusic.play().catch(e => {
-                console.log('Автовоспроизведение заблокировано. Пользователь должен взаимодействовать со страницей.');
-            });
+    // Обработчик для кнопок выбора игры
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('play-game-btn')) {
+            const gameCard = e.target.closest('.game-card');
+            const gameType = gameCard.getAttribute('data-game');
+            navigateTo(gameType);
+        }
+
+        // Обработчик для кнопки "Назад" на странице выбора игры
+        if (e.target.classList.contains('back-btn') && document.getElementById('game-select-page')) {
+            navigateTo('main');
         }
     });
 });
@@ -34,5 +39,16 @@ export function showPage(pageId) {
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.classList.add('active');
+
+        // Инициализируем игру, если перешли на страницу игры
+        if (pageId === 'extra-word-game') {
+            import('./extra-word-game.js').then(module => {
+                module.initExtraWordGame();
+            });
+        } else if (pageId === 'word-combination-game') {
+            import('./word-combination-game.js').then(module => {
+                module.initWordCombinationGame();
+            });
+        }
     }
 }
