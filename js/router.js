@@ -14,6 +14,9 @@ export function navigateTo(page, confirmExit = false) {
         case 'word-combination-game':
             loadWordCombinationGamePage();
             break;
+        case 'obsolete-words-game':
+            loadObsoleteWordsGamePage();
+            break;
         case 'game-select':
             loadGameSelectPage();
             break;
@@ -64,11 +67,8 @@ function loadGameSelectPage() {
     fetch('pages/game-select.html')
         .then(response => response.text())
         .then(html => {
-            // Создаем временный контейнер
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-
-            // Вставляем содержимое в основной контейнер
             const container = document.querySelector('.container');
             const newContent = tempDiv.querySelector('#game-select-page');
 
@@ -76,7 +76,6 @@ function loadGameSelectPage() {
                 container.appendChild(newContent);
                 showPage('game-select-page');
 
-                // Добавляем обработчик для кнопки "Назад"
                 const backBtn = newContent.querySelector('.back-btn');
                 if (backBtn) {
                     backBtn.addEventListener('click', () => {
@@ -92,21 +91,16 @@ function loadGameSelectPage() {
 
 // Загрузка страницы игры "Найди лишнее слово"
 function loadExtraWordGamePage() {
-    // Если страница уже загружена, просто показываем её
     if (document.getElementById('extra-word-game')) {
         showPage('extra-word-game');
         return;
     }
 
-    // Динамическая загрузка страницы
     fetch('pages/extra-word-game.html')
         .then(response => response.text())
         .then(html => {
-            // Создаем временный контейнер
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-
-            // Вставляем содержимое в основной контейнер
             const container = document.querySelector('.container');
             const newContent = tempDiv.querySelector('#extra-word-game');
 
@@ -122,27 +116,47 @@ function loadExtraWordGamePage() {
 
 // Загрузка страницы игры "Составь словосочетание"
 function loadWordCombinationGamePage() {
-    // Если страница уже загружена, просто показываем её
     if (document.getElementById('word-combination-game')) {
         showPage('word-combination-game');
         return;
     }
 
-    // Динамическая загрузка страницы
     fetch('pages/word-combination-game.html')
         .then(response => response.text())
         .then(html => {
-            // Создаем временный контейнер
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-
-            // Вставляем содержимое в основной контейнер
             const container = document.querySelector('.container');
             const newContent = tempDiv.querySelector('#word-combination-game');
 
             if (newContent) {
                 container.appendChild(newContent);
                 showPage('word-combination-game');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки страницы:', error);
+        });
+}
+
+// Загрузка страницы игры "Найди устаревшие слова"
+function loadObsoleteWordsGamePage() {
+    if (document.getElementById('obsolete-words-game')) {
+        showPage('obsolete-words-game');
+        return;
+    }
+
+    fetch('pages/obsolete-words-game.html')
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const container = document.querySelector('.container');
+            const newContent = tempDiv.querySelector('#obsolete-words-game');
+
+            if (newContent) {
+                container.appendChild(newContent);
+                showPage('obsolete-words-game');
             }
         })
         .catch(error => {

@@ -1,0 +1,45 @@
+<!-- Страница игры "Найди устаревшие слова" -->
+<div id="obsolete-words-game" class="page">
+    <div class="navigation">
+        <button class="back-btn"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <h1>Найди устаревшие слова</h1>
+    <p id="task-description">Выбери устаревшие слова в предложении</p>
+
+    <div class="game-area">
+        <div class="progress-container">
+            <div class="progress-text" id="progress-text">Найдено: 0/0</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="sentence-container" id="sentence-container">
+            <!-- Предложение будет добавлено динамически -->
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div id="result-image" class="result-image"></div>
+            <div id="result-text" class="result-text"></div>
+            <div id="word-explanation" class="word-explanation"></div>
+        </div>
+
+        <div class="hint-container">
+            <button id="hint-btn" class="hint-btn">
+                <i class="fas fa-lightbulb"></i> Подсказка
+            </button>
+            <div id="hint-content" class="hint-content">
+                <!-- Подсказка будет добавлена динамически -->
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+        <h2>ЗАПОМНИ!</h2>
+        <div id="remember-content" class="remember-content">
+            <!-- Информация для запоминания -->
+        </div>
+        <button class="btn next-level-btn">Следующий уровень</button>
+    </div>
+</div>

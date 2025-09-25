@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('.start-btn');
     if (startBtn) {
         startBtn.addEventListener('click', () => {
-            // Переходим к выбору игры
             navigateTo('game-select');
         });
     }
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navigateTo(gameType);
         }
 
-        // Обработчик для кнопки "Назад" на странице выбора игры
         if (e.target.classList.contains('back-btn') && document.getElementById('game-select-page')) {
             navigateTo('main');
         }
@@ -48,6 +46,10 @@ export function showPage(pageId) {
         } else if (pageId === 'word-combination-game') {
             import('./word-combination-game.js').then(module => {
                 module.initWordCombinationGame();
+            });
+        } else if (pageId === 'obsolete-words-game') {
+            import('./obsolete-words-game.js').then(module => {
+                module.initObsoleteWordsGame();
             });
         }
     }

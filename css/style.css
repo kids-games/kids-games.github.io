@@ -832,3 +832,95 @@ p {
 .exit-cancel-btn {
     background: linear-gradient(135deg, #8e9eab, #a7b8c9);
 }
+
+/* Стили для игры "Найди устаревшие слова" */
+/* Стили для игры "Найди устаревшие слова" */
+.sentence-container {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 100px;
+}
+
+.sentence-line {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sentence-word {
+    padding: 5px 8px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    border: 2px solid transparent;
+    display: inline-block;
+}
+
+.sentence-word:hover {
+    background: #f0f7ff;
+    border: 2px dashed #6a4c93;
+    transform: translateY(-2px);
+}
+
+.sentence-word.correct {
+    background: #d4edda;
+    border: 2px solid #28a745;
+    color: #155724;
+    cursor: default;
+}
+
+.sentence-word.incorrect {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+    color: #721c24;
+    animation: shake 0.5s;
+}
+
+/* Остальные стили остаются без изменений */
+.word-explanation {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.word-explanation strong {
+    color: #6a4c93;
+}
+
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #6a4c93;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #43cea2, #185a9d);
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
