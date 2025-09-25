@@ -15,42 +15,76 @@ let hintUsed = false;
 export function initWordCombinationGame() {
     completedPairs = 0;
     hintUsed = false;
-    
+
+    // Сначала скрываем все элементы результатов
+    hideAllGameElements();
+
     // Настраиваем обработчики событий
     setupEventListeners();
-    
+
     // Сбрасываем состояние
     resetGameState();
+}
+
+// Скрыть все игровые элементы
+function hideAllGameElements() {
+    const gameArea = document.querySelector('#word-combination-game .game-area');
+    const successMessage = document.querySelector('#word-combination-game .success-message');
+    const resultContainer = document.querySelector('#word-combination-game #result-container');
+
+    if (gameArea) gameArea.style.display = 'block';
+    if (successMessage) successMessage.style.display = 'none';
+    if (resultContainer) resultContainer.style.display = 'none';
 }
 
 // Настройка обработчиков событий
 function setupEventListeners() {
     // Обработчик для кнопки "Назад" с подтверждением
-    const backBtn = document.querySelector('.back-btn');
+    const backBtn = document.querySelector('#word-combination-game .back-btn');
     if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            navigateTo('game-select', true); // true - запросить подтверждение
-        });
+        backBtn.onclick = () => navigateTo('game-select', true); // С подтверждением
     }
-    
+
     // Обработчик для кнопки "Подсказка"
-    document.getElementById('hint-btn').addEventListener('click', toggleHint);
-    
-    // Обработчик для кнопки "Завершить игру"
-    document.querySelector('.next-level-btn').addEventListener('click', () => {
-        navigateTo('game-select');
-    });
-    
+    const hintBtn = document.querySelector('#word-combination-game #hint-btn');
+    if (hintBtn) {
+        hintBtn.onclick = toggleHint;
+    }
+
+    // Обработчик для кнопки "Завершить игру" - БЕЗ подтверждения
+    const nextLevelBtn = document.querySelector('#word-combination-game .next-level-btn');
+    if (nextLevelBtn) {
+        nextLevelBtn.onclick = () => navigateTo('game-select'); // БЕЗ подтверждения
+    }
+
     // Обработчики для перетаскивания
-    const draggableItems = document.querySelectorAll('.draggable');
-    const dropZones = document.querySelectorAll('.target-dropzone');
-    
+    setupDragAndDrop();
+}
+
+// Настройка перетаскивания
+function setupDragAndDrop() {
+    const draggableItems = document.querySelectorAll('#word-combination-game .draggable');
+    const dropZones = document.querySelectorAll('#word-combination-game .target-dropzone');
+
+    // Удаляем старые обработчики
     draggableItems.forEach(item => {
+        item.replaceWith(item.cloneNode(true));
+    });
+
+    dropZones.forEach(zone => {
+        zone.replaceWith(zone.cloneNode(true));
+    });
+
+    // Добавляем новые обработчики
+    const newDraggableItems = document.querySelectorAll('#word-combination-game .draggable');
+    const newDropZones = document.querySelectorAll('#word-combination-game .target-dropzone');
+
+    newDraggableItems.forEach(item => {
         item.addEventListener('dragstart', handleDragStart);
         item.addEventListener('dragend', handleDragEnd);
     });
-    
-    dropZones.forEach(zone => {
+
+    newDropZones.forEach(zone => {
         zone.addEventListener('dragover', handleDragOver);
         zone.addEventListener('drop', handleDrop);
     });
@@ -58,27 +92,29 @@ function setupEventListeners() {
 
 // Сбросить состояние игры
 function resetGameState() {
-    const hintContent = document.getElementById('hint-content');
-    const resultContainer = document.getElementById('result-container');
-    const successMessage = document.getElementById('success-message');
+    const hintContent = document.querySelector('#word-combination-game #hint-content');
+    const resultContainer = document.querySelector('#word-combination-game #result-container');
+    const successMessage = document.querySelector('#word-combination-game .success-message');
 
     // Сбрасываем состояние
     hintUsed = false;
-    hintContent.style.display = 'none';
-    resultContainer.style.display = 'none';
-    successMessage.style.display = 'none';
-    document.getElementById('hint-btn').innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
+    if (hintContent) hintContent.style.display = 'none';
+    if (resultContainer) resultContainer.style.display = 'none';
+    if (successMessage) successMessage.style.display = 'none';
+
+    const hintBtn = document.querySelector('#word-combination-game #hint-btn');
+    if (hintBtn) hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
 
     // Очищаем все зоны сброса
-    const dropZones = document.querySelectorAll('.target-dropzone');
+    const dropZones = document.querySelectorAll('#word-combination-game .target-dropzone');
     dropZones.forEach(zone => {
         zone.innerHTML = '';
         zone.classList.remove('correct', 'incorrect');
     });
 
     // Возвращаем все слова в исходное положение
-    const nounsContainer = document.querySelector('.nouns-container');
-    const draggableItems = document.querySelectorAll('.draggable');
+    const nounsContainer = document.querySelector('#word-combination-game .nouns-container');
+    const draggableItems = document.querySelectorAll('#word-combination-game .draggable');
 
     draggableItems.forEach(item => {
         if (!item.parentElement.classList.contains('nouns-container')) {
@@ -117,7 +153,7 @@ function handleDrop(e) {
     }
 
     // Добавляем слово в зону
-    const nounElement = document.querySelector(`.draggable[data-word="${noun}"]`);
+    const nounElement = document.querySelector(`#word-combination-game .draggable[data-word="${noun}"]`);
     e.target.appendChild(nounElement.cloneNode(true));
 
     // Удаляем оригинальный элемент
@@ -129,19 +165,21 @@ function handleDrop(e) {
 
 // Проверить сочетание
 function checkCombination(adjective, noun, dropZone) {
-    const resultContainer = document.getElementById('result-container');
-    const resultImage = document.getElementById('result-image');
-    const resultText = document.getElementById('result-text');
+    const resultContainer = document.querySelector('#word-combination-game #result-container');
+    const resultImage = document.querySelector('#word-combination-game #result-image');
+    const resultText = document.querySelector('#word-combination-game #result-text');
 
-    resultContainer.style.display = 'block';
+    if (resultContainer) resultContainer.style.display = 'block';
 
     if (correctCombinations[adjective] === noun) {
         // Правильное сочетание
         playSound('assets/audio/effects/success.mp3');
         dropZone.classList.add('correct');
-        resultImage.innerHTML = '✅';
-        resultText.textContent = 'Правильно! Отличная работа!';
-        resultText.className = 'result-text correct';
+        if (resultImage) resultImage.innerHTML = '✅';
+        if (resultText) {
+            resultText.textContent = 'Правильно! Отличная работа!';
+            resultText.className = 'result-text correct';
+        }
 
         completedPairs++;
 
@@ -149,21 +187,24 @@ function checkCombination(adjective, noun, dropZone) {
         if (completedPairs === Object.keys(correctCombinations).length) {
             // Все пары собраны правильно
             setTimeout(() => {
-                document.getElementById('success-message').style.display = 'block';
+                const successMessage = document.querySelector('#word-combination-game .success-message');
+                if (successMessage) successMessage.style.display = 'block';
             }, 1500);
         }
     } else {
         // Неправильное сочетание
         playSound('assets/audio/effects/error.mp3');
         dropZone.classList.add('incorrect');
-        resultImage.innerHTML = '❌';
-        resultText.textContent = 'Попробуй другое сочетание!';
-        resultText.className = 'result-text incorrect';
+        if (resultImage) resultImage.innerHTML = '❌';
+        if (resultText) {
+            resultText.textContent = 'Попробуй другое сочетание!';
+            resultText.className = 'result-text incorrect';
+        }
 
         // Через 2 секунды сбрасываем неправильное сочетание
         setTimeout(() => {
             resetIncorrectCombination(dropZone, noun);
-            resultContainer.style.display = 'none';
+            if (resultContainer) resultContainer.style.display = 'none';
             dropZone.classList.remove('incorrect');
         }, 2000);
     }
@@ -183,28 +224,24 @@ function resetIncorrectCombination(dropZone, noun) {
         originalNoun.addEventListener('dragstart', handleDragStart);
         originalNoun.addEventListener('dragend', handleDragEnd);
 
-        document.querySelector('.nouns-container').appendChild(originalNoun);
+        const nounsContainer = document.querySelector('#word-combination-game .nouns-container');
+        if (nounsContainer) nounsContainer.appendChild(originalNoun);
     }
 }
 
 // Переключить подсказку
 function toggleHint() {
-    const hintContent = document.getElementById('hint-content');
-    const hintBtn = document.getElementById('hint-btn');
+    const hintContent = document.querySelector('#word-combination-game #hint-content');
+    const hintBtn = document.querySelector('#word-combination-game #hint-btn');
 
-    if (hintContent.style.display === 'block') {
-        hintContent.style.display = 'none';
-        hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
-    } else {
-        hintContent.style.display = 'block';
-        hintBtn.innerHTML = '<i class="fas fa-lightbulb" style="text-decoration: line-through;"></i> Подсказка';
-        hintUsed = true;
+    if (hintContent && hintBtn) {
+        if (hintContent.style.display === 'block') {
+            hintContent.style.display = 'none';
+            hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
+        } else {
+            hintContent.style.display = 'block';
+            hintBtn.innerHTML = '<i class="fas fa-lightbulb" style="text-decoration: line-through;"></i> Подсказка';
+            hintUsed = true;
+        }
     }
-}
-
-// Вернуться назад
-function goBack() {
-    import('./router.js').then(module => {
-        module.navigateTo('main');
-    });
 }

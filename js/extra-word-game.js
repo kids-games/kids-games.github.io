@@ -1,4 +1,5 @@
 import { playSound } from './audio.js';
+import { navigateTo } from './router.js';
 
 // Задания для игры "Найди лишнее слово"
 const extraWordTasks = [
@@ -82,22 +83,40 @@ export function initExtraWordGame() {
     currentTaskIndex = 0;
     hintUsed = false;
 
+    // Сначала скрываем все элементы результатов
+    hideAllGameElements();
+
     // Показываем первое задание
     showTask(currentTaskIndex);
 
     // Настраиваем обработчик для кнопки "Назад" с подтверждением
-    const backBtn = document.querySelector('.back-btn');
+    const backBtn = document.querySelector('#extra-word-game .back-btn');
     if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            navigateTo('game-select', true); // true - запросить подтверждение
-        });
+        backBtn.onclick = () => navigateTo('game-select', true);
     }
 
     // Настраиваем обработчик для кнопки "Подсказка"
-    document.getElementById('hint-btn').addEventListener('click', toggleHint);
+    const hintBtn = document.querySelector('#extra-word-game #hint-btn');
+    if (hintBtn) {
+        hintBtn.onclick = toggleHint;
+    }
 
     // Настраиваем обработчик для кнопки "Следующий уровень"
-    document.querySelector('.next-level-btn').addEventListener('click', nextLevel);
+    const nextLevelBtn = document.querySelector('#extra-word-game .next-level-btn');
+    if (nextLevelBtn) {
+        nextLevelBtn.onclick = nextLevel;
+    }
+}
+
+// Скрыть все игровые элементы
+function hideAllGameElements() {
+    const gameArea = document.querySelector('#extra-word-game .game-area');
+    const successMessage = document.querySelector('#extra-word-game .success-message');
+    const resultContainer = document.querySelector('#extra-word-game #result-container');
+
+    if (gameArea) gameArea.style.display = 'block';
+    if (successMessage) successMessage.style.display = 'none';
+    if (resultContainer) resultContainer.style.display = 'none';
 }
 
 // Показать задание
@@ -109,65 +128,87 @@ function showTask(index) {
     }
 
     const task = extraWordTasks[index];
-    const wordsContainer = document.getElementById('words-container');
-    const hintContent = document.getElementById('hint-content');
-    const resultContainer = document.getElementById('result-container');
-    const successMessage = document.getElementById('success-message');
+    const wordsContainer = document.querySelector('#extra-word-game #words-container');
+    const hintContent = document.querySelector('#extra-word-game #hint-content');
+    const resultContainer = document.querySelector('#extra-word-game #result-container');
+    const successMessage = document.querySelector('#extra-word-game .success-message');
+    const nextLevelBtn = document.querySelector('#extra-word-game .next-level-btn');
 
     // Сбрасываем состояние
     hintUsed = false;
-    wordsContainer.innerHTML = '';
-    hintContent.innerHTML = task.hint;
-    hintContent.style.display = 'none';
-    resultContainer.style.display = 'none';
-    successMessage.style.display = 'none';
-    document.getElementById('hint-btn').innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
+    if (wordsContainer) wordsContainer.innerHTML = '';
+    if (hintContent) {
+        hintContent.innerHTML = task.hint;
+        hintContent.style.display = 'none';
+    }
+    if (resultContainer) resultContainer.style.display = 'none';
+    if (successMessage) successMessage.style.display = 'none';
+
+    const hintBtn = document.querySelector('#extra-word-game #hint-btn');
+    if (hintBtn) hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
+
+    // Обновляем текст кнопки в зависимости от текущего уровня
+    if (nextLevelBtn) {
+        if (index === extraWordTasks.length - 1) {
+            nextLevelBtn.textContent = 'Закончить игру';
+        } else {
+            nextLevelBtn.textContent = 'Следующий уровень';
+        }
+    }
 
     // Создаем кнопки со словами
-    task.words.forEach((word, i) => {
-        const wordButton = document.createElement('button');
-        wordButton.className = 'word-btn';
-        wordButton.textContent = word;
-        wordButton.addEventListener('click', () => checkAnswer(i, task.correctIndex));
-        wordsContainer.appendChild(wordButton);
-    });
+    if (wordsContainer) {
+        task.words.forEach((word, i) => {
+            const wordButton = document.createElement('button');
+            wordButton.className = 'word-btn';
+            wordButton.textContent = word;
+            wordButton.addEventListener('click', () => checkAnswer(i, task.correctIndex));
+            wordsContainer.appendChild(wordButton);
+        });
+    }
 
     // Заполняем контент для запоминания
-    document.getElementById('remember-content').innerHTML = task.remember;
+    const rememberContent = document.querySelector('#extra-word-game #remember-content');
+    if (rememberContent) rememberContent.innerHTML = task.remember;
 }
 
 // Проверить ответ
 function checkAnswer(selectedIndex, correctIndex) {
-    const wordButtons = document.querySelectorAll('.word-btn');
-    const resultContainer = document.getElementById('result-container');
-    const resultImage = document.getElementById('result-image');
-    const resultText = document.getElementById('result-text');
+    const wordButtons = document.querySelectorAll('#extra-word-game .word-btn');
+    const resultContainer = document.querySelector('#extra-word-game #result-container');
+    const resultImage = document.querySelector('#extra-word-game #result-image');
+    const resultText = document.querySelector('#extra-word-game #result-text');
 
-    resultContainer.style.display = 'block';
+    if (resultContainer) resultContainer.style.display = 'block';
 
     if (selectedIndex === correctIndex) {
         // Правильный ответ
         playSound('assets/audio/effects/success.mp3');
         wordButtons[selectedIndex].classList.add('correct');
-        resultImage.innerHTML = '✅';
-        resultText.textContent = 'Правильно! Молодец!';
-        resultText.className = 'result-text correct';
+        if (resultImage) resultImage.innerHTML = '✅';
+        if (resultText) {
+            resultText.textContent = 'Правильно! Молодец!';
+            resultText.className = 'result-text correct';
+        }
 
         // Через 2 секунды показываем экран "ЗАПОМНИ"
         setTimeout(() => {
-            document.getElementById('success-message').style.display = 'block';
+            const successMessage = document.querySelector('#extra-word-game .success-message');
+            if (successMessage) successMessage.style.display = 'block';
         }, 2000);
     } else {
         // Неправильный ответ
         playSound('assets/audio/effects/error.mp3');
         wordButtons[selectedIndex].classList.add('incorrect');
-        resultImage.innerHTML = '❌';
-        resultText.textContent = 'Попробуй еще раз!';
-        resultText.className = 'result-text incorrect';
+        if (resultImage) resultImage.innerHTML = '❌';
+        if (resultText) {
+            resultText.textContent = 'Попробуй еще раз!';
+            resultText.className = 'result-text incorrect';
+        }
 
         // Через 2 секунды сбрасываем результат
         setTimeout(() => {
-            resultContainer.style.display = 'none';
+            if (resultContainer) resultContainer.style.display = 'none';
             wordButtons[selectedIndex].classList.remove('incorrect');
         }, 2000);
     }
@@ -175,47 +216,39 @@ function checkAnswer(selectedIndex, correctIndex) {
 
 // Переключить подсказку
 function toggleHint() {
-    const hintContent = document.getElementById('hint-content');
-    const hintBtn = document.getElementById('hint-btn');
+    const hintContent = document.querySelector('#extra-word-game #hint-content');
+    const hintBtn = document.querySelector('#extra-word-game #hint-btn');
 
-    if (hintContent.style.display === 'block') {
-        hintContent.style.display = 'none';
-        hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
-    } else {
-        hintContent.style.display = 'block';
-        hintBtn.innerHTML = '<i class="fas fa-lightbulb" style="text-decoration: line-through;"></i> Подсказка';
-        hintUsed = true;
+    if (hintContent && hintBtn) {
+        if (hintContent.style.display === 'block') {
+            hintContent.style.display = 'none';
+            hintBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Подсказка';
+        } else {
+            hintContent.style.display = 'block';
+            hintBtn.innerHTML = '<i class="fas fa-lightbulb" style="text-decoration: line-through;"></i> Подсказка';
+            hintUsed = true;
+        }
     }
 }
 
-// Перейти на следующий уровень
+// Перейти на следующий уровень или завершить игру
 function nextLevel() {
-    currentTaskIndex++;
-    showTask(currentTaskIndex);
+    if (currentTaskIndex === extraWordTasks.length - 1) {
+        // Последний уровень завершен - возвращаемся к выбору игр БЕЗ подтверждения
+        navigateTo('game-select'); // БЕЗ подтверждения
+    } else {
+        // Переходим на следующий уровень
+        currentTaskIndex++;
+        showTask(currentTaskIndex);
+    }
 }
 
 // Показать завершение игры
 function showGameComplete() {
-    const gameArea = document.querySelector('.game-area');
-    const successMessage = document.getElementById('success-message');
+    // Используем стандартный экран "ЗАПОМНИ" с кнопкой "Закончить игру"
+    const successMessage = document.querySelector('#extra-word-game .success-message');
+    const gameArea = document.querySelector('#extra-word-game .game-area');
 
-    gameArea.style.display = 'none';
-    successMessage.style.display = 'block';
-    successMessage.innerHTML = `
-        <h2>Поздравляем! 🎉</h2>
-        <p>Ты успешно завершил все задания!</p>
-        <button class="btn play-again-btn">Играть снова</button>
-    `;
-
-    document.querySelector('.play-again-btn').addEventListener('click', () => {
-        gameArea.style.display = 'block';
-        initExtraWordGame();
-    });
-}
-
-// Вернуться назад
-function goBack() {
-    import('./router.js').then(module => {
-        module.navigateTo('main');
-    });
+    if (gameArea) gameArea.style.display = 'none';
+    if (successMessage) successMessage.style.display = 'block';
 }
