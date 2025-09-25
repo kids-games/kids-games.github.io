@@ -55,6 +55,10 @@ export function showPage(pageId) {
             import('./proverbs-game.js').then(module => {
                 module.initProverbsGame();
             });
+        } else if (pageId === 'synonym-proverbs-game') {
+            import('./synonym-proverbs-game.js').then(module => {
+                module.initSynonymProverbsGame();
+            });
         }
     }
 }

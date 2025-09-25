@@ -1026,3 +1026,91 @@ p {
     opacity: 0.5;
     transform: scale(0.95);
 }
+
+/* Стили для игры "Найди синонимичную пословицу" */
+.main-proverb-container {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-proverb h3 {
+    color: #6a4c93;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.main-proverb .proverb-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.proverbs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.proverb-block {
+    background: white;
+    border: 3px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.proverb-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: #6a4c93;
+}
+
+.proverb-block.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+    cursor: default;
+}
+
+.proverb-block.incorrect {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+    animation: shake 0.5s;
+    cursor: default;
+}
+
+.proverb-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.proverb-number {
+    background: #6a4c93;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.proverb-text {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+}

@@ -20,6 +20,9 @@ export function navigateTo(page, confirmExit = false) {
         case 'proverbs-game':
             loadProverbsGamePage();
             break;
+        case 'synonym-proverbs-game':
+            loadSynonymProverbsGamePage();
+            break;
         case 'game-select':
             loadGameSelectPage();
             break;
@@ -184,6 +187,30 @@ function loadProverbsGamePage() {
             if (newContent) {
                 container.appendChild(newContent);
                 showPage('proverbs-game');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки страницы:', error);
+        });
+}
+
+function loadSynonymProverbsGamePage() {
+    if (document.getElementById('synonym-proverbs-game')) {
+        showPage('synonym-proverbs-game');
+        return;
+    }
+
+    fetch('pages/synonym-proverbs-game.html')
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const container = document.querySelector('.container');
+            const newContent = tempDiv.querySelector('#synonym-proverbs-game');
+
+            if (newContent) {
+                container.appendChild(newContent);
+                showPage('synonym-proverbs-game');
             }
         })
         .catch(error => {
