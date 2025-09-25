@@ -51,6 +51,10 @@ export function showPage(pageId) {
             import('./obsolete-words-game.js').then(module => {
                 module.initObsoleteWordsGame();
             });
+        } else if (pageId === 'proverbs-game') {
+            import('./proverbs-game.js').then(module => {
+                module.initProverbsGame();
+            });
         }
     }
 }

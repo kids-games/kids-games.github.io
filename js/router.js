@@ -17,6 +17,9 @@ export function navigateTo(page, confirmExit = false) {
         case 'obsolete-words-game':
             loadObsoleteWordsGamePage();
             break;
+        case 'proverbs-game':
+            loadProverbsGamePage();
+            break;
         case 'game-select':
             loadGameSelectPage();
             break;
@@ -157,6 +160,30 @@ function loadObsoleteWordsGamePage() {
             if (newContent) {
                 container.appendChild(newContent);
                 showPage('obsolete-words-game');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки страницы:', error);
+        });
+}
+
+function loadProverbsGamePage() {
+    if (document.getElementById('proverbs-game')) {
+        showPage('proverbs-game');
+        return;
+    }
+
+    fetch('pages/proverbs-game.html')
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const container = document.querySelector('.container');
+            const newContent = tempDiv.querySelector('#proverbs-game');
+
+            if (newContent) {
+                container.appendChild(newContent);
+                showPage('proverbs-game');
             }
         })
         .catch(error => {

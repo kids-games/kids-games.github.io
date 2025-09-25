@@ -1,0 +1,62 @@
+<!-- Страница игры "Восстанови пословицы" -->
+<div id="proverbs-game" class="page">
+    <div class="navigation">
+        <button class="back-btn"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <h1>Восстанови пословицы</h1>
+    <p id="task-description">Перетащи вторые части пословиц на нужные места</p>
+
+    <div class="game-area">
+        <div class="proverbs-container">
+            <div class="proverbs-first-parts">
+                <div class="proverb-item" data-proverb="1">
+                    <span class="proverb-text">Красна девица в хороводе, что</span>
+                    <div class="drop-zone" data-target="весенний день"></div>
+                </div>
+                <div class="proverb-item" data-proverb="2">
+                    <span class="proverb-text">Красна изба не углями, а</span>
+                    <div class="drop-zone" data-target="красна пирогами"></div>
+                </div>
+                <div class="proverb-item" data-proverb="3">
+                    <span class="proverb-text">Красно поле пшеном, а</span>
+                    <div class="drop-zone" data-target="беседа умом"></div>
+                </div>
+            </div>
+
+            <div class="proverbs-second-parts">
+                <div class="part-block" draggable="true" data-part="весенний день">
+                    весенний день
+                </div>
+                <div class="part-block" draggable="true" data-part="красна пирогами">
+                    красна пирогами
+                </div>
+                <div class="part-block" draggable="true" data-part="беседа умом">
+                    беседа умом
+                </div>
+            </div>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div id="result-image" class="result-image"></div>
+            <div id="result-text" class="result-text"></div>
+        </div>
+
+        <div class="hint-container">
+            <button id="hint-btn" class="hint-btn">
+                <i class="fas fa-lightbulb"></i> Подсказка
+            </button>
+            <div id="hint-content" class="hint-content">
+                <!-- Подсказка будет добавлена динамически -->
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+        <h2>ЗАПОМНИ!</h2>
+        <div id="remember-content" class="remember-content">
+            <!-- Информация для запоминания -->
+        </div>
+        <button class="btn next-level-btn">Закончить игру</button>
+    </div>
+</div>
