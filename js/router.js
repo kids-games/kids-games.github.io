@@ -26,6 +26,9 @@ export function navigateTo(page, confirmExit = false) {
         case 'painting-description-game':
             loadPaintingDescriptionGamePage();
             break;
+        case 'word-categories-game':
+            loadWordCategoriesGamePage();
+            break;
         case 'game-select':
             loadGameSelectPage();
             break;
@@ -238,6 +241,30 @@ function loadPaintingDescriptionGamePage() {
             if (newContent) {
                 container.appendChild(newContent);
                 showPage('painting-description-game');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки страницы:', error);
+        });
+}
+
+function loadWordCategoriesGamePage() {
+    if (document.getElementById('word-categories-game')) {
+        showPage('word-categories-game');
+        return;
+    }
+
+    fetch('pages/word-categories-game.html')
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const container = document.querySelector('.container');
+            const newContent = tempDiv.querySelector('#word-categories-game');
+
+            if (newContent) {
+                container.appendChild(newContent);
+                showPage('word-categories-game');
             }
         })
         .catch(error => {

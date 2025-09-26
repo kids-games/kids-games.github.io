@@ -63,6 +63,10 @@ export function showPage(pageId) {
             import('./painting-description-game.js').then(module => {
                 module.initPaintingDescriptionGame();
             });
+        } else if (pageId === 'word-categories-game') {
+            import('./word-categories-game.js').then(module => {
+                module.initWordCategoriesGame();
+            });
         }
     }
 }
