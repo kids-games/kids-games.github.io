@@ -44,6 +44,9 @@ const obsoleteWordsTasks = [
             <div class="remember-item">
                 <h3>Ланита</h3>
                 <p>— старинное, красивое слово для обозначения щеки</p>
+                <div class="image-container">
+                    <img src="assets/images/jowls.jpg" alt="Щеки" class="painting-image">
+                </div>
             </div>
         `
     },
@@ -68,6 +71,9 @@ const obsoleteWordsTasks = [
             <div class="remember-item">
                 <h3>Чело</h3>
                 <p>— старинное, торжественное слово для обозначения лба</p>
+                <div class="image-container">
+                    <img src="assets/images/forehead.jpg" alt="Лоб" class="painting-image">
+                </div>
             </div>
         `
     },

@@ -14,12 +14,16 @@ const extraWordTasks = [
             <div class="word-definition">
                 <h3>Палица</h3>
                 <p>— это такое старинное мощное оружие, похожее на большую и тяжёлую дубинку.</p>
-                <div class="hint-image">🗡️</div>
+                <div class="image-container">
+                    <img src="assets/images/paliza.jpg" alt="Палица" class="painting-image">
+                </div>
             </div>
             <div class="word-definition">
                 <h3>Гусли</h3>
                 <p>— это старинный струнный музыкальный инструмент. Это один из самых древних инструментов на Руси.</p>
-                <div class="hint-image">🎵</div>
+                <div class="image-container">
+                    <img src="assets/images/gusli.jpg" alt="Гусли" class="painting-image">
+                </div>
             </div>
         `,
         remember: `
@@ -30,12 +34,16 @@ const extraWordTasks = [
             <div class="remember-item">
                 <h3>Палица</h3>
                 <p>— старинное оружие, большая дубинка</p>
-                <div class="remember-image">🗡️</div>
+                <div class="image-container">
+                    <img src="assets/images/paliza.jpg" alt="Палица" class="painting-image">
+                </div>
             </div>
             <div class="remember-item">
                 <h3>Гусли</h3>
                 <p>— старинный музыкальный инструмент</p>
-                <div class="remember-image">🎵</div>
+                <div class="image-container">
+                    <img src="assets/images/gusli.jpg" alt="Гусли" class="painting-image">
+                </div>
             </div>
             <p class="remember-summary">Булат и палица — это оружие, а гусли — музыкальный инструмент!</p>
         `
