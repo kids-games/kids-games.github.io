@@ -96,7 +96,7 @@ export function initExtraWordGame() {
     // Настраиваем обработчик для кнопки "Назад" с подтверждением
     const backBtn = document.querySelector('#extra-word-game .back-btn');
     if (backBtn) {
-        backBtn.onclick = () => navigateTo('game-select', true);
+        backBtn.onclick = () => navigateTo('game-select');
     }
 
     // Настраиваем обработчик для кнопки "Подсказка"

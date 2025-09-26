@@ -41,39 +41,39 @@ export function navigateTo(page, confirmExit = false) {
 
 // Функция подтверждения выхода
 function showExitConfirmation(targetPage) {
-    // const modal = document.createElement('div');
-    // modal.className = 'exit-confirmation-modal';
-    // modal.innerHTML = `
-    //     <div class="exit-confirmation-content">
-    //         <h3>Ты точно хочешь покинуть игру?</h3>
-    //         <p>Весь прогресс будет потерян</p>
-    //         <div class="exit-confirmation-buttons">
-    //             <button class="btn exit-confirm-btn">Да</button>
-    //             <button class="btn exit-cancel-btn">Нет</button>
-    //         </div>
-    //     </div>
-    // `;
+    const modal = document.createElement('div');
+    modal.className = 'exit-confirmation-modal';
+    modal.innerHTML = `
+        <div class="exit-confirmation-content">
+            <h3>Ты точно хочешь покинуть игру?</h3>
+            <p>Весь прогресс будет потерян</p>
+            <div class="exit-confirmation-buttons">
+                <button class="btn exit-confirm-btn">Да</button>
+                <button class="btn exit-cancel-btn">Нет</button>
+            </div>
+        </div>
+    `;
 
-    // document.body.appendChild(modal);
+    document.body.appendChild(modal);
 
-    // // Обработчики для кнопок
-    // modal.querySelector('.exit-confirm-btn').addEventListener('click', () => {
-    //     document.body.removeChild(modal);
-    navigateTo(targetPage);
-    // });
+    // Обработчики для кнопок
+    modal.querySelector('.exit-confirm-btn').addEventListener('click', () => {
+        document.body.removeChild(modal);
+        navigateTo(targetPage);
+    });
 
-    // modal.querySelector('.exit-cancel-btn').addEventListener('click', () => {
-    //     document.body.removeChild(modal);
-    // });
+    modal.querySelector('.exit-cancel-btn').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
 }
 
 // Загрузка страницы выбора игры
 function loadGameSelectPage() {
     // Если страница уже загружена, просто показываем её
-    if (document.getElementById('game-select-page')) {
-        showPage('game-select-page');
-        return;
-    }
+    // if (document.getElementById('game-select-page')) {
+    //     showPage('game-select-page');
+    //     return;
+    // }
 
     // Динамическая загрузка страницы
     fetch('pages/game-select.html')

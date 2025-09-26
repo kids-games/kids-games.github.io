@@ -148,7 +148,7 @@ function setupEventHandlers() {
     // Обработчик для кнопки "Назад"
     const backBtn = document.querySelector('#painting-description-game .back-btn');
     if (backBtn) {
-        backBtn.onclick = () => navigateTo('game-select', true);
+        backBtn.onclick = () => navigateTo('game-select');
     }
 
     // Обработчик для кнопки "Подсказка"

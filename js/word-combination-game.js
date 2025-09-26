@@ -42,7 +42,7 @@ function setupEventListeners() {
     // Обработчик для кнопки "Назад" с подтверждением
     const backBtn = document.querySelector('#word-combination-game .back-btn');
     if (backBtn) {
-        backBtn.onclick = () => navigateTo('game-select', true); // С подтверждением
+        backBtn.onclick = () => navigateTo('game-select'); // С подтверждением
     }
 
     // Обработчик для кнопки "Подсказка"

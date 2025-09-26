@@ -173,7 +173,7 @@ export function initObsoleteWordsGame() {
     // Настраиваем обработчик для кнопки "Назад"
     const backBtn = document.querySelector('#obsolete-words-game .back-btn');
     if (backBtn) {
-        backBtn.onclick = () => navigateTo('game-select', true);
+        backBtn.onclick = () => navigateTo('game-select');
     }
 
     // Настраиваем обработчик для кнопки "Подсказка"

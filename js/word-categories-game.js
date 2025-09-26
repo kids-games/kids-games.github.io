@@ -173,7 +173,7 @@ function setupEventHandlers() {
     // Обработчик для кнопки "Назад"
     const backBtn = document.querySelector('#word-categories-game .back-btn');
     if (backBtn) {
-        backBtn.onclick = () => navigateTo('game-select', true);
+        backBtn.onclick = () => navigateTo('game-select');
     }
 
     // Обработчик для кнопки "Подсказка"
