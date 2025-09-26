@@ -23,6 +23,9 @@ export function navigateTo(page, confirmExit = false) {
         case 'synonym-proverbs-game':
             loadSynonymProverbsGamePage();
             break;
+        case 'painting-description-game':
+            loadPaintingDescriptionGamePage();
+            break;
         case 'game-select':
             loadGameSelectPage();
             break;
@@ -35,30 +38,30 @@ export function navigateTo(page, confirmExit = false) {
 
 // Функция подтверждения выхода
 function showExitConfirmation(targetPage) {
-    const modal = document.createElement('div');
-    modal.className = 'exit-confirmation-modal';
-    modal.innerHTML = `
-        <div class="exit-confirmation-content">
-            <h3>Ты точно хочешь покинуть игру?</h3>
-            <p>Весь прогресс будет потерян</p>
-            <div class="exit-confirmation-buttons">
-                <button class="btn exit-confirm-btn">Да</button>
-                <button class="btn exit-cancel-btn">Нет</button>
-            </div>
-        </div>
-    `;
+    // const modal = document.createElement('div');
+    // modal.className = 'exit-confirmation-modal';
+    // modal.innerHTML = `
+    //     <div class="exit-confirmation-content">
+    //         <h3>Ты точно хочешь покинуть игру?</h3>
+    //         <p>Весь прогресс будет потерян</p>
+    //         <div class="exit-confirmation-buttons">
+    //             <button class="btn exit-confirm-btn">Да</button>
+    //             <button class="btn exit-cancel-btn">Нет</button>
+    //         </div>
+    //     </div>
+    // `;
 
-    document.body.appendChild(modal);
+    // document.body.appendChild(modal);
 
-    // Обработчики для кнопок
-    modal.querySelector('.exit-confirm-btn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-        navigateTo(targetPage);
-    });
+    // // Обработчики для кнопок
+    // modal.querySelector('.exit-confirm-btn').addEventListener('click', () => {
+    //     document.body.removeChild(modal);
+    navigateTo(targetPage);
+    // });
 
-    modal.querySelector('.exit-cancel-btn').addEventListener('click', () => {
-        document.body.removeChild(modal);
-    });
+    // modal.querySelector('.exit-cancel-btn').addEventListener('click', () => {
+    //     document.body.removeChild(modal);
+    // });
 }
 
 // Загрузка страницы выбора игры
@@ -211,6 +214,30 @@ function loadSynonymProverbsGamePage() {
             if (newContent) {
                 container.appendChild(newContent);
                 showPage('synonym-proverbs-game');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки страницы:', error);
+        });
+}
+
+function loadPaintingDescriptionGamePage() {
+    if (document.getElementById('painting-description-game')) {
+        showPage('painting-description-game');
+        return;
+    }
+
+    fetch('pages/painting-description-game.html')
+        .then(response => response.text())
+        .then(html => {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const container = document.querySelector('.container');
+            const newContent = tempDiv.querySelector('#painting-description-game');
+
+            if (newContent) {
+                container.appendChild(newContent);
+                showPage('painting-description-game');
             }
         })
         .catch(error => {

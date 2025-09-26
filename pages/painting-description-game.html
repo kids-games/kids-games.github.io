@@ -1,0 +1,46 @@
+<!-- Страница игры "Восстанови описание картины" -->
+<div id="painting-description-game" class="page">
+    <div class="navigation">
+        <button class="back-btn"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <h1>Восстанови описание картины</h1>
+    <p id="task-description">Перетащи устаревшие слова в описание картины Васнецова "Витязь на распутье"</p>
+
+    <div class="game-area">
+        <div class="text-container" id="text-container">
+            <!-- Текст с пустыми местами будет добавлен динамически -->
+        </div>
+
+        <div class="words-container" id="words-container">
+            <!-- Слова для перетаскивания будут добавлены динамически -->
+        </div>
+
+        <div class="image-container">
+            <img src="assets/images/vityaz-na-rasputye.jpg" alt="Витязь на распутье" class="painting-image">
+            <div class="image-caption">В.М. Васнецов "Витязь на распутье"</div>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div id="result-image" class="result-image"></div>
+            <div id="result-text" class="result-text"></div>
+        </div>
+
+        <div class="hint-container">
+            <button id="hint-btn" class="hint-btn">
+                <i class="fas fa-lightbulb"></i> Подсказка
+            </button>
+            <div id="hint-content" class="hint-content">
+                <!-- Подсказка будет добавлена динамически -->
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+        <h2>ЗАПОМНИ!</h2>
+        <div id="remember-content" class="remember-content">
+            <!-- Информация для запоминания -->
+        </div>
+        <button class="btn next-level-btn">Закончить игру</button>
+    </div>
+</div>
